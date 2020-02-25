@@ -63,5 +63,30 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
            'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors',
            'teddy bear', 'hair drier', 'toothbrush']
 
+def get_width(xy):
+        width = abs(xy[1] - xy[3])
+        return width
+
+def get_height(xy):
+    height = abs(xy[0] - xy[2])
+    return height
+
+def get_area(xy):
+    width = get_width(xy)
+    height = get_height(xy)
+    area = width * height
+    return area
+
+def get_biggest_box(xy_list):
+    biggest_area = 0
+    for i, xy in enumerate(xy_list):
+        area = get_area(xy)
+        if area > biggest_area:
+            biggest_area = area
+            biggest_xy = xy
+            ix = i
+    return biggest_xy, ix
+
+
     
     
