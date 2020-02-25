@@ -87,6 +87,32 @@ def get_biggest_box(xy_list):
             ix = i
     return biggest_xy, ix
 
+def detect_object(image_path):
+    # Load image
+    image = skimage.io.imread(image_path)
+    # Run detection
+    results = model.detect([image], verbose=1)
+    # Visualize results
+    r = results[0]
+    
+    # Get Dominan Object
+    big_box, big_ix = get_biggest_box(r['rois'])
+
+    # Crop Image
+    target = image[big_box[0]:big_box[2], big_box[1]:big_box[3], :]
+    # Save Image
+    skimage.io.imsave("extracted.jpg", target)
+
+def parse_opt():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-image", type=str, help="Path to query which contains image to be queried")
+    args = parser.parse_args()
+
+    return args
+
+if __name__ == "__main__":
+    opt = parse_opt()
+    detect_object(opt.image)
 
     
     
